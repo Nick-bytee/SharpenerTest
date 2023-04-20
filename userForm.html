@@ -55,6 +55,7 @@
 
     const form = document.querySelector('form');
     form.addEventListener('submit', saveDetails);
+
     function saveDetails(event) {
       // Prevent the form from submitting and reloading the page
       event.preventDefault();
@@ -64,9 +65,7 @@
         name: username,
         email : useremail 
       }
-
-      my_objSerialised = JSON.stringify(my_obj);
-      
+      my_objSerialised = JSON.stringify(my_obj);\
       localStorage.setItem(useremail, my_objSerialised)
 
       //adding users to list and displaying them
@@ -87,7 +86,7 @@
       if(e.target.classList.contains('delete')){
         if(confirm('Are you sure you want to delete this entry?')){
           var li = e.target.parentElement;
-          var email = li.textContent.split(' ').pop();
+          var email = li.textContent.split(' ')[1];
           console.log(email)
           localStorage.removeItem(email)
           items.removeChild(li)
