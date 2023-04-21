@@ -70,25 +70,49 @@
       //adding users to list and displaying them
       var li = document.createElement('li')
       var button = document.createElement('button')
-      var details = document.createTextNode(username + ' ' + useremail)
+      var details = document.createTextNode(username + ' | ' + useremail)
       button.className = "btn btn-danger btn-sm float-right delete"
       button.appendChild(document.createTextNode(' Delete'))
+
+      //adding edit button 
+      var editbtn = document.createElement('button')
+      editbtn.appendChild(document.createTextNode('Edit'))
+      editbtn.className = "btn btn-dark btm-sm float-right edit"
+
       li.appendChild(details)
-      li.append(button)
+      li.appendChild(button)
+      li.appendChild(editbtn)
       items.appendChild(li)
 
-      items.addEventListener('click', deleteitem)
-      //delete items from list and local storage
-      function deleteitem(e) {
-        e.preventDefault();
-        if (e.target.classList.contains('delete')) {
-          if (confirm('Are you sure you want to delete this entry?')) {
-            var li = e.target.parentElement;
-            localStorage.removeItem(useremail)
-            items.removeChild(li)
-          }
+    }
+
+    //delete items from list and local storage
+    items.addEventListener('click', deleteitem)
+    function deleteitem(e) {
+      e.preventDefault();
+      if (e.target.classList.contains('delete')) {
+        if (confirm('Are you sure you want to delete this entry?')) {
+          var li = e.target.parentElement;
+          var details = li.childNodes[0].textContent.split(' | ')
+          localStorage.removeItem(details[1])
+          items.removeChild(li)
         }
       }
+    }
+
+
+    //edit button function
+    items.addEventListener('click', editdetails)
+    function editdetails(e) {
+      e.preventDefault();
+      var li = e.target.parentElement;
+      var namebox = document.getElementById('name');
+      var emailBox = document.getElementById('email');
+      var details = li.childNodes[0].textContent.split(' | ')
+      namebox.value = details[0]
+      emailBox.value = details[1];
+      localStorage.removeItem(details[1])
+      items.removeChild(li)
     }
 
 
