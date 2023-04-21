@@ -21,8 +21,7 @@
 </head>
 
 <body>
-  <div class="container "
-  style="max-width: 700px
+  <div class="container " style="max-width: 700px
   ;">
 
     <form>
@@ -37,14 +36,14 @@
         <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
       </div>
       <br>
-      </div>
-          <div class="mt-2 text-center" >
-              <input type="submit" class="btn btn-primary">
-          </div>
-    </form>
-    <ul id="userList">
-      <li class="list-group-item" ></li>
-    </ul>
+  </div>
+  <div class="mt-2 text-center">
+    <input type="submit" class="btn btn-primary">
+  </div>
+  </form>
+  <ul id="userList">
+    <li class="list-group-item"></li>
+  </ul>
 
 
 
@@ -63,36 +62,33 @@
       var useremail = document.getElementById('email').value;
       let my_obj = {
         name: username,
-        email : useremail 
+        email: useremail
       }
-      my_objSerialised = JSON.stringify(my_obj);\
+      my_objSerialised = JSON.stringify(my_obj);
       localStorage.setItem(useremail, my_objSerialised)
 
       //adding users to list and displaying them
       var li = document.createElement('li')
       var button = document.createElement('button')
-      var details = document.createTextNode(username.trim() + ' ' + useremail.trim())
+      var details = document.createTextNode(username + ' ' + useremail)
       button.className = "btn btn-danger btn-sm float-right delete"
       button.appendChild(document.createTextNode(' Delete'))
       li.appendChild(details)
-      li.appendChild(button)
+      li.append(button)
       items.appendChild(li)
-    }
-    
-    items.addEventListener('click', deleteitem)
-    //delete items from list and local storage
-    function deleteitem(e){
-      e.preventDefault();
-      if(e.target.classList.contains('delete')){
-        if(confirm('Are you sure you want to delete this entry?')){
-          var li = e.target.parentElement;
-          var email = li.textContent.split(' ')[1];
-          console.log(email)
-          localStorage.removeItem(email)
-          items.removeChild(li)
+
+      items.addEventListener('click', deleteitem)
+      //delete items from list and local storage
+      function deleteitem(e) {
+        e.preventDefault();
+        if (e.target.classList.contains('delete')) {
+          if (confirm('Are you sure you want to delete this entry?')) {
+            var li = e.target.parentElement;
+            localStorage.removeItem(useremail)
+            items.removeChild(li)
+          }
         }
       }
-      var li = e.target.parentElement
     }
 
 
